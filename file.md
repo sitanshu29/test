@@ -1,264 +1,201 @@
-## Module 4 Graded Assessment
-* **Total points: 10**
+## Practice Quiz: Object-oriented Programming (Optional)
+* **Total points: 5**
 * **Grade: 100%**
 
 <br>
 
 ### Question 1
 
-The format_address function separates out parts of the address string into new strings: house_number and street_name, and returns: "house number X on street named Y". The format of the input string is: numeric house number, followed by the street name which may contain numbers, but never by themselves, and could be several words long. For example, "123 Main Street", "1001 1st Ave", or "55 North Center Drive". Fill in the gaps to complete this function.
+Let’s test your knowledge of using dot notation to access methods and attributes in an object. Let’s say we have a class called Birds. Birds has two attributes: color and number. Birds also has a method called count() that counts the number of birds (adds a value to number). Which of the following lines of code will correctly print the number of birds? Keep in mind, the number of birds is 0 until they are counted!
 
-```
-def format_address(address_string):
-  # Declare variables
-  hourse_number = ''
-  street_name = ''
-  # Separate the address string into parts
-  address_string = address_string.split()
-
-  # Traverse through the address parts
-  for string in address_string:
-    # Determine if the address part is the
-    # house number or part of the street name
-    if string.isdigit():
-      hourse_number = string
-    # Does anything else need to be done 
-    # before returning the result?
-    else:
-      street_name += string + ' '
-  
-  # Return the formatted string  
-  return "house number {} on street named {}".format(hourse_number, street_name)
-
-print(format_address("123 Main Street"))
-# Should print: "house number 123 on street named Main Street"
-
-print(format_address("1001 1st Ave"))
-# Should print: "house number 1001 on street named 1st Ave"
-
-print(format_address("55 North Center Drive"))
-# Should print "house number 55 on street named North Center Drive"
-```
-
-Output:
-
-```
-house number 123 on street named Main Street 
-house number 1001 on street named 1st Ave 
-house number 55 on street named North Center Drive 
-```
+* bluejay.number = 0<br>print(bluejay.number)
+* print(bluejay.number.count())
+* **bluejay.count()<br>print(bluejay.number)**
+* print(bluejay.number)
 
 <br>
 
 ### Question 2
 
-The highlight_word function changes the given word in a sentence to its upper-case version. For example, highlight_word("Have a nice day", "nice") returns "Have a NICE day". Can you write this function in just one line?
+Creating new instances of class objects can be a great way to keep track of values using attributes associated with the object. The values of these attributes can be easily changed at the object level. The following code illustrates a famous quote by George Bernard Shaw, using objects to represent people. Fill in the blanks to make the code satisfy the behavior described in the quote.
 
 ```
-def highlight_word(sentence, word):
-	return(sentence.replace(word, word.upper(), 1))
+# “If you have an apple and I have an apple and we exchange these apples then
+# you and I will still each have one apple. But if you have an idea and I have
+# an idea and we exchange these ideas, then each of us will have two ideas.”
+# George Bernard Shaw
 
-print(highlight_word("Have a nice day", "nice"))
-print(highlight_word("Shhh, don't be so loud!", "loud"))
-print(highlight_word("Automating with Python is fun", "fun"))
+class Person:
+    apples = 0
+    ideas = 0
+
+johanna = Person()
+johanna.apples = 1
+johanna.ideas = 1
+
+martin = Person()
+martin.apples = 2
+martin.ideas = 1
+
+def exchange_apples(you, me):
+    #Here, despite G.B. Shaw's quote, our characters have started with       
+    #different amounts of apples so we can better observe the results. 
+    #We're going to have Martin and Johanna exchange ALL their apples with 
+    #one another.
+    #Hint: how would you switch values of variables, 
+    #so that "you" and "me" will exchange ALL their apples with one another?
+    #Do you need a temporary variable to store one of the values?
+    #You may need more than one line of code to do that, which is OK. 
+    you.apples, me.apples = me.apples, you.apples
+    return you.apples, me.apples
+    
+def exchange_ideas(you, me):
+    #"you" and "me" will share our ideas with one another.
+    #What operations need to be performed, so that each object receives
+    #the shared number of ideas?
+    #Hint: how would you assign the total number of ideas to 
+    #each idea attribute? Do you need a temporary variable to store 
+    #the sum of ideas, or can you find another way? 
+    #Use as many lines of code as you need here.
+    you.ideas += me.ideas
+    me.ideas += you.ideas - me.ideas
+    return you.ideas, me.ideas
+
+exchange_apples(johanna, martin)
+print("Johanna has {} apples and Martin has {} apples".format(johanna.apples, martin.apples))
+exchange_ideas(johanna, martin)
+print("Johanna has {} ideas and Martin has {} ideas".format(johanna.ideas, martin.ideas))
 ```
 
 Output:
 
 ```
-Have a NICE day
-Shhh, don't be so LOUD!
-Automating with Python is FUN
+Johanna has 2 apples and Martin has 1 apples
+Johanna has 2 ideas and Martin has 2 ideas
 ```
 
 <br>
 
 ### Question 3
 
-A professor with two assistants, Jamie and Drew, wants an attendance list of the students, in the order that they arrived in the classroom. Drew was the first one to note which students arrived, and then Jamie took over. After the class, they each entered their lists into the computer and emailed them to the professor, who needs to combine them into one, in the order of each student's arrival. Jamie emailed a follow-up, saying that her list is in reverse order. Complete the steps to combine them into one list as follows: **the contents of Drew's list, followed by Jamie's list in reverse order**, to get an accurate list of the students as they arrived.
+The City class has the following attributes: name, country (where the city is located), elevation (measured in meters), and population (approximate, according to recent statistics). Fill in the blanks of the max_elevation_city function to return the name of the city and its country (separated by a comma), when comparing the 3 defined instances for a specified minimal population. For example, calling the function for a minimum population of 1 million: max_elevation_city(1000000) should return "Sofia, Bulgaria".
 
 ```
-def combine_lists(list1, list2):
-  # Generate a new list containing the elements of list2
-  # Followed by the elements of list1 in reverse order
-  return list2 + list1[::-1]
-  
-	
-Jamies_list = ["Alice", "Cindy", "Bobby", "Jan", "Peter"]
-Drews_list = ["Mike", "Carol", "Greg", "Marcia"]
+# define a basic city class
+class City:
+	name = ""
+	country = ""
+	elevation = 0 
+	population = 0
 
-print(combine_lists(Jamies_list, Drews_list))
+# create a new instance of the City class and
+# define each attribute
+city1 = City()
+city1.name = "Cusco"
+city1.country = "Peru"
+city1.elevation = 3399
+city1.population = 358052
+
+# create a new instance of the City class and
+# define each attribute
+city2 = City()
+city2.name = "Sofia"
+city2.country = "Bulgaria"
+city2.elevation = 2290
+city2.population = 1241675
+
+# create a new instance of the City class and
+# define each attribute
+city3 = City()
+city3.name = "Seoul"
+city3.country = "South Korea"
+city3.elevation = 38
+city3.population = 9733509
+
+def max_elevation_city(min_population):
+	# Initialize the variable that will hold 
+# the information of the city with 
+# the highest elevation 
+	return_city = City()
+
+	# Evaluate the 1st instance to meet the requirements:
+	# does city #1 have at least min_population and
+	# is its elevation the highest evaluated so far?
+	if city1.population > min_population and city1.elevation > return_city.elevation:
+		return_city = city1
+	# Evaluate the 2nd instance to meet the requirements:
+	# does city #2 have at least min_population and
+	# is its elevation the highest evaluated so far?
+	if city2.population > min_population and city2.elevation > return_city.elevation:
+		return_city = city2
+	# Evaluate the 3rd instance to meet the requirements:
+	# does city #3 have at least min_population and
+	# is its elevation the highest evaluated so far?
+	if city3.population > min_population and city3.elevation > return_city.elevation:
+		return_city = city3
+
+	#Format the return string
+	if return_city.name:
+		return "{}, {}".format(return_city.name,return_city.country)
+	else:
+		return ""
+
+print(max_elevation_city(100000)) # Should print "Cusco, Peru"
+print(max_elevation_city(1000000)) # Should print "Sofia, Bulgaria"
+print(max_elevation_city(10000000)) # Should print ""
 ```
 
 Output:
 
 ```
-['Mike', 'Carol', 'Greg', 'Marcia', 'Peter', 'Jan', 'Bobby', 'Cindy', 'Alice']
+Cusco, Peru
+Sofia, Bulgaria
 ```
 
 <br>
 
 ### Question 4
 
-Use a list comprehension to create a list of squared numbers (n*n). The function receives the variables start and end, and returns a list of squares of consecutive numbers between start and end inclusively. For example, squares(2, 3) should return [4, 9].
+What makes an object different from a class?
 
-```
-def squares(start, end):
-	return [ num**2 for num in range(start, end+1) ]
+* An object represents and defines a concept
+* **An object is a specific instance of a class**
+* An object is a template for a class
+* Objects don't have accessible variables
 
-print(squares(2, 3)) # Should be [4, 9]
-print(squares(1, 5)) # Should be [1, 4, 9, 16, 25]
-print(squares(0, 10)) # Should be [0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
-```
-
-Output:
-
-```
-[4, 9]
-[1, 4, 9, 16, 25]
-[0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
-```
+> Objects are an encapsulation of variables and functions into a single entity.
 
 <br>
 
 ### Question 5
 
-Complete the code to iterate through the keys and values of the car_prices dictionary, printing out some information about each one.
+We have two pieces of furniture: a brown wood table and a red leather couch. Fill in the blanks following the creation of each Furniture class instance, so that the describe_furniture function can format a sentence that describes these pieces as follows: "This piece of furniture is made of {color} {material}"
 
 ```
-def car_listing(car_prices):
-  result = ""
-  for cars in car_prices:
-    result += "{} costs {} dollars".format(cars, car_prices[cars]) + "\n"
-  return result
+class Furniture:
+	color = ""
+	material = ""
 
-print(car_listing({"Kia Soul":19000, "Lamborghini Diablo":55000, "Ford Fiesta":13000, "Toyota Prius":24000}))
-```
+table = Furniture()
+table.color = 'brown'
+table.material = 'wood'
 
-Output:
+couch = Furniture()
+couch.color = 'red'
+couch.material = 'leather'
 
-```
-Kia Soul costs 19000 dollars
-Lamborghini Diablo costs 55000 dollars
-Ford Fiesta costs 13000 dollars
-Toyota Prius costs 24000 dollars
-```
+def describe_furniture(piece):
+	return ("This piece of furniture is made of {} {}".format(piece.color, piece.material))
 
-<br>
-
-### Question 6
-
-Taylor and Rory are hosting a party. They sent out invitations, and each one collected responses into dictionaries, with names of their friends and how many guests each friend is bringing. Each dictionary is a partial list, but Rory's list has more current information about the number of guests. Fill in the blanks to combine both dictionaries into one, with each friend listed only once, and the number of guests from Rory's dictionary taking precedence, if a name is included in both dictionaries. Then print the resulting dictionary.
-
-```
-def combine_guests(guests1, guests2):
-  # Combine both dictionaries into one, with each key listed 
-  # only once, and the value from guests1 taking precedence
-  guests = guests2.copy()
-  guests.update(guests1)
-  return guests
-
-Rorys_guests = { "Adam":2, "Brenda":3, "David":1, "Jose":3, "Charlotte":2, "Terry":1, "Robert":4}
-Taylors_guests = { "David":4, "Nancy":1, "Robert":2, "Adam":1, "Samantha":3, "Chris":5}
-
-print(combine_guests(Rorys_guests, Taylors_guests))
+print(describe_furniture(table)) 
+# Should be "This piece of furniture is made of brown wood"
+print(describe_furniture(couch)) 
+# Should be "This piece of furniture is made of red leather"
 ```
 
 Output:
 
 ```
-{'David': 1, 'Nancy': 1, 'Robert': 4, 'Adam': 2, 'Samantha': 3, 'Chris': 5, 'Brenda': 3, 'Jose': 3, 'Charlotte': 2, 'Terry': 1}
+This piece of furniture is made of brown wood
+This piece of furniture is made of red leather
 ```
-
-<br>
-
-### Question 7
-
-Use a dictionary to count the frequency of letters in the input string. Only letters should be counted, not blank spaces, numbers, or punctuation. Upper case should be considered the same as lower case. For example, count_letters("This is a sentence.") should return {'t': 2, 'h': 1, 'i': 2, 's': 3, 'a': 1, 'e': 3, 'n': 2, 'c': 1}.
-
-```
-def count_letters(text):
-  result = {}
-  # Go through each letter in the text
-  for letter in text.lower():
-    # Check if the letter needs to be counted or not
-    if letter.isalpha():
-      if letter not in result:
-        result[letter] = 1
-        # Add or increment the value in the dictionary
-      else:
-        result[letter] += 1
-  return result
-
-print(count_letters("AaBbCc"))
-# Should be {'a': 2, 'b': 2, 'c': 2}
-
-print(count_letters("Math is fun! 2+2=4"))
-# Should be {'m': 1, 'a': 1, 't': 1, 'h': 1, 'i': 1, 's': 1, 'f': 1, 'u': 1, 'n': 1}
-
-print(count_letters("This is a sentence."))
-# Should be {'t': 2, 'h': 1, 'i': 2, 's': 3, 'a': 1, 'e': 3, 'n': 2, 'c': 1}
-```
-
-Output:
-
-```
-{'a': 2, 'b': 2, 'c': 2}
-{'m': 1, 'a': 1, 't': 1, 'h': 1, 'i': 1, 's': 1, 'f': 1, 'u': 1, 'n': 1}
-{'t': 2, 'h': 1, 'i': 2, 's': 3, 'a': 1, 'e': 3, 'n': 2, 'c': 1}
-```
-
-<br>
-
-### Question 8
-
-What do the following commands return when animal = "Hippopotamus"?
-
-```
->>> print(animal[3:6])
->>> print(animal[-5])
->>> print(animal[10:])
-```
-
-* ppo, t, mus
-* ppop, o, s
-* **pop, t, us**
-* popo, t, mus
-
-> When both parts of a string index range are included, the substring starts at first index and ends at second index minus 1. When the index is negative, the character is counted from the end of the string. When the second index is omitted, it goes until the end of the string.
-
-<br>
-
-### Question 9
-
-What does the list "colors" contain after these commands are executed?
-
-```
-colors = ["red", "white", "blue"]
-colors.insert(2, "yellow")
-```
-
-* **['red', 'white', 'yellow', 'blue']**
-* ['red', 'yellow', 'white', 'blue']
-* ['red', 'yellow', 'blue']
-* ['red', 'white', 'yellow']
-
-> The insert command inserts the new element into the list at the specified index, shifting the other elements over afterwards.
-
-<br>
-
-### Question 10
-
-What do the following commands return?
-
-```
-host_addresses = {"router": "192.168.1.1", "localhost": "127.0.0.1", "google": "8.8.8.8"}
-host_addresses.keys()
-```
-
-* {"router": "192.168.1.1", "localhost": "127.0.0.1", "google": "8.8.8.8"}
-* ["router", "192.168.1.1", "localhost", "127.0.0.1", "google", "8.8.8.8"]
-* ['192.168.1.1', '127.0.0.1', '8.8.8.8']
-* **['router', 'localhost', 'google']**
-
-> In dictionaries, the keys() command returns a list of just the keys, which is what this is.
